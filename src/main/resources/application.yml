@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # ///代表 //localhost:8080/
+    url: jdbc:mysql:///airmonitor
+    username: root
+    password: root
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    # district_id  ==  districtId
+    map-underscore-to-camel-case: true
