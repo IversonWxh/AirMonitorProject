@@ -20,4 +20,11 @@ public class R {
         vo.setData(data);
         return vo;
     }
+    
+    public static ResultVo ok(long totalData, long totalPages, Object data) {
+        ResultVo vo = ok(data);
+        vo.setTotalData(totalData);
+        vo.setTotalPages(totalPages);
+        return vo;
+    }
 }

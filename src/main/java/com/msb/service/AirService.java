@@ -1,5 +1,6 @@
 package com.msb.service;
 
+import com.github.pagehelper.PageInfo;
 import com.msb.entity.District;
 
 import java.util.List;
@@ -16,4 +17,14 @@ public interface AirService {
      * @return
      */
     List<District> findDistrictList();
+    
+    /**
+     * 分页&条件查询空气质量信息
+     *
+     * @param page
+     * @param size
+     * @param districtId
+     * @return
+     */
+    PageInfo findAirByDistrictIdAndPage(Integer page, Integer size, Integer districtId);
 }

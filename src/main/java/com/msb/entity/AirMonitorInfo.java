@@ -1,5 +1,8 @@
 package com.msb.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 /**
@@ -9,24 +12,24 @@ import java.util.Date;
  */
 public class AirMonitorInfo {
     private Integer id;
+    @JsonIgnore
     private Integer districtId;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date monitorTime;
     private Integer pm10;
     private Integer pm25;
     private String monitoringStation;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date lastModifyTime;
     
-    public AirMonitorInfo() {
+    private String districtName;
+    
+    public String getDistrictName() {
+        return districtName;
     }
     
-    public AirMonitorInfo(Integer id, Integer districtId, Date monitorTime, Integer pm10, Integer pm25, String monitoringStation, Date lastModifyTime) {
-        this.id = id;
-        this.districtId = districtId;
-        this.monitorTime = monitorTime;
-        this.pm10 = pm10;
-        this.pm25 = pm25;
-        this.monitoringStation = monitoringStation;
-        this.lastModifyTime = lastModifyTime;
+    public void setDistrictName(String districtName) {
+        this.districtName = districtName;
     }
     
     public Integer getId() {
@@ -83,5 +86,19 @@ public class AirMonitorInfo {
     
     public void setLastModifyTime(Date lastModifyTime) {
         this.lastModifyTime = lastModifyTime;
+    }
+    
+    @Override
+    public String toString() {
+        return "AirMonitorInfo{" +
+                "id=" + id +
+                ", districtId=" + districtId +
+                ", monitorTime=" + monitorTime +
+                ", pm10=" + pm10 +
+                ", pm25=" + pm25 +
+                ", monitoringStation='" + monitoringStation + '\'' +
+                ", lastModifyTime=" + lastModifyTime +
+                ", districtName='" + districtName + '\'' +
+                '}';
     }
 }
