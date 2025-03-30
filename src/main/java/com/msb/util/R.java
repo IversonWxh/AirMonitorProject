@@ -21,10 +21,17 @@ public class R {
         return vo;
     }
     
-    public static ResultVo ok(long totalData, long totalPages, Object data) {
+    public static ResultVo ok(Long totalData, Integer totalPages, Object data) {
         ResultVo vo = ok(data);
         vo.setTotalData(totalData);
         vo.setTotalPages(totalPages);
+        return vo;
+    }
+    
+    public static ResultVo error(Integer code, String message) {
+        ResultVo vo = new ResultVo();
+        vo.setCode(code);
+        vo.setMsg(message);
         return vo;
     }
 }

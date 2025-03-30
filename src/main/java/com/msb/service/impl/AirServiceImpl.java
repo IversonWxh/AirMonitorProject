@@ -2,13 +2,16 @@ package com.msb.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.msb.DTO.AirAddDTO;
 import com.msb.entity.AirMonitorInfo;
 import com.msb.entity.District;
 import com.msb.mapper.AirMapper;
 import com.msb.mapper.DistrictMapper;
 import com.msb.service.AirService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -41,5 +44,24 @@ public class AirServiceImpl implements AirService {
         PageInfo pageInfo = new PageInfo(airList);
         //4.返回
         return pageInfo;
+    }
+    
+    
+    @Override
+    @Transactional
+    public void add(AirAddDTO airAddDTO) {
+        //1.封装数据、
+        AirMonitorInfo airMonitorInfo = new AirMonitorInfo();
+        BeanUtils.copyProperties(airAddDTO, airMonitorInfo);
+        
+        //2.添加数据
+        Integer count = airMapper.insert(airMonitorInfo);
+        
+        //3.判断count
+        if (count != 1) {
+            System.out.println("【添加空气质量】 添加失败！");
+            throw new RuntimeException("【添加空气质量】 添加失败！");
+        }
+        
     }
 }

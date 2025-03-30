@@ -12,13 +12,13 @@ public class ResultVo {
     private Integer code;
     
     private String msg;
-    
+    @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
     private Object data;
     
     @JsonInclude(value = JsonInclude.Include.NON_EMPTY) // 只序列化非空
     private Long totalData;
     @JsonInclude(value = JsonInclude.Include.NON_EMPTY) // 只序列化非空
-    private Long totalPages;
+    private Integer totalPages;
     
     public Long getTotalData() {
         return totalData;
@@ -28,11 +28,11 @@ public class ResultVo {
         this.totalData = totalData;
     }
     
-    public Long getTotalPages() {
+    public Integer getTotalPages() {
         return totalPages;
     }
     
-    public void setTotalPages(Long totalPages) {
+    public void setTotalPages(Integer totalPages) {
         this.totalPages = totalPages;
     }
     

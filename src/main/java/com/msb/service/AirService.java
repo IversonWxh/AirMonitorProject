@@ -1,6 +1,7 @@
 package com.msb.service;
 
 import com.github.pagehelper.PageInfo;
+import com.msb.DTO.AirAddDTO;
 import com.msb.entity.District;
 
 import java.util.List;
@@ -27,4 +28,11 @@ public interface AirService {
      * @return
      */
     PageInfo findAirByDistrictIdAndPage(Integer page, Integer size, Integer districtId);
+    
+    /**
+     * 添加空气质量信息
+     *
+     * @param airAddDTO
+     */
+    void add(AirAddDTO airAddDTO);
 }
