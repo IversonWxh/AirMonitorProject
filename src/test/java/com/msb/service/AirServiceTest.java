@@ -3,6 +3,7 @@ package com.msb.service;
 
 import com.github.pagehelper.PageInfo;
 import com.msb.DTO.AirAddDTO;
+import com.msb.DTO.AirUpdateDTO;
 import com.msb.entity.District;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -48,5 +51,29 @@ public class AirServiceTest {
         airAddDTO.setPm25(25);
         airAddDTO.setMonitoringStation("上海检测站!!!！");
         airService.add(airAddDTO);
+    }
+    
+    @Test
+    @Transactional
+    public void updateById() throws ParseException {
+        AirUpdateDTO airUpdateDTO = new AirUpdateDTO();
+        airUpdateDTO.setId(22);
+        airUpdateDTO.setDistrictId(1);
+        airUpdateDTO.setPm25(555);
+        airUpdateDTO.setPm10(555);
+        
+        String dateStr = "2025-03-01";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date monitorTime = sdf.parse(dateStr);
+        airUpdateDTO.setMonitorTime(monitorTime);
+        
+        airUpdateDTO.setMonitoringStation("江西监测站！");
+        airService.updateById(airUpdateDTO);
+    }
+    
+    @Test
+    @Transactional
+    public void deleteById() {
+        airService.deleteById(12);
     }
 }

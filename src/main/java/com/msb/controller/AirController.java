@@ -2,16 +2,14 @@ package com.msb.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.msb.DTO.AirAddDTO;
+import com.msb.DTO.AirUpdateDTO;
 import com.msb.entity.District;
 import com.msb.service.AirService;
 import com.msb.util.R;
 import com.msb.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -93,5 +91,55 @@ public class AirController {
         return R.ok();
     }
     
+    /**
+     * # 修改空气质量信息
+     * # 请求方式&路径
+     * POST    http://localhost:8080/air/update
+     * <p>
+     * # 请求参数
+     * id = Integer   （必传项）
+     * districtId = Integer   （非必传）
+     * monitorTime = yyyy-MM-dd  （非必传）
+     * pm10 = Integer  （非必传）
+     * pm25 = Integer  （非必传）
+     * monitoringStation = String  （非必传）
+     * <p>
+     * # 业务流程
+     * 1、接收参数
+     * 2、做参数的非空校验
+     * 3、修改指定id的数据
+     */
+    @PostMapping("/air/update")
+    public ResultVo airUpdate(@Valid AirUpdateDTO airUpdateDTO, BindingResult result) {
+        //1. 参数的非空校验
+        if (result.hasErrors()) {
+            String message = result.getFieldError().getDefaultMessage();
+            return R.error(400, message);
+        }
+        //2.找Service修改数据
+        airService.updateById(airUpdateDTO);
+        //3.返回
+        return R.ok();
+    }
+    
+    /**
+     * # 删除空气质量信息
+     * # 请求方式&路径
+     * DELETE    http://localhost:8080/air/delete/{id}
+     * <p>
+     * # 请求参数
+     * 路径上的id
+     * <p>
+     * # 业务流程
+     * 1、接收参数
+     * 2、删除指定id的数据
+     */
+    @DeleteMapping("/air/delete/{id}")
+    public ResultVo airDelete(@PathVariable Integer id) {
+        //1.调用Service删除
+        airService.deleteById(id);
+        //2.相应数据
+        return R.ok();
+    }
     
 }

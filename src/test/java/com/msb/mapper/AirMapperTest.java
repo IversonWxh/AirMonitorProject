@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -40,4 +42,29 @@ public class AirMapperTest {
         Assert.assertEquals(1, (int) count);
     }
     
+    @Test
+    @Transactional
+    public void updateById() throws ParseException {
+        AirMonitorInfo airMonitorInfo = new AirMonitorInfo();
+        airMonitorInfo.setId(22);
+        airMonitorInfo.setDistrictId(1);
+        airMonitorInfo.setPm25(555);
+        airMonitorInfo.setPm10(555);
+        
+        String dateStr = "2025-03-01";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date monitorTime = sdf.parse(dateStr);
+        airMonitorInfo.setMonitorTime(monitorTime);
+        
+        airMonitorInfo.setMonitoringStation("芜湖监测站！");
+        int count = airMapper.updateById(airMonitorInfo);
+        Assert.assertEquals(1, count);
+    }
+    
+    @Test
+    @Transactional
+    public void deleteById() {
+        int count = airMapper.deleteById(22);
+        Assert.assertEquals(1, count);
+    }
 }

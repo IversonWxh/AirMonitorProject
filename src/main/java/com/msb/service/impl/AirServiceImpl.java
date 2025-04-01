@@ -3,6 +3,7 @@ package com.msb.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.msb.DTO.AirAddDTO;
+import com.msb.DTO.AirUpdateDTO;
 import com.msb.entity.AirMonitorInfo;
 import com.msb.entity.District;
 import com.msb.mapper.AirMapper;
@@ -50,7 +51,7 @@ public class AirServiceImpl implements AirService {
     @Override
     @Transactional
     public void add(AirAddDTO airAddDTO) {
-        //1.封装数据、
+        //1.封装数据
         AirMonitorInfo airMonitorInfo = new AirMonitorInfo();
         BeanUtils.copyProperties(airAddDTO, airMonitorInfo);
         
@@ -63,5 +64,32 @@ public class AirServiceImpl implements AirService {
             throw new RuntimeException("【添加空气质量】 添加失败！");
         }
         
+    }
+    
+    @Override
+    @Transactional
+    public void updateById(AirUpdateDTO airUpdateDTO) {
+        //封装数据
+        AirMonitorInfo airMonitorInfo = new AirMonitorInfo();
+        BeanUtils.copyProperties(airUpdateDTO, airMonitorInfo);
+        
+        //1.修改数据
+        int count = airMapper.updateById(airMonitorInfo);
+        
+        //2.不成功，处理异常
+        if (count != 1) {
+            System.out.println("【修改空气质量】 修改失败！");
+            throw new RuntimeException("【修改空气质量】 修改失败！");
+        }
+    }
+    
+    @Override
+    @Transactional
+    public void deleteById(Integer id) {
+        int count = airMapper.deleteById(id);
+        if (count != 1) {
+            System.out.println("【删除空气质量】 删除失败！");
+            throw new RuntimeException("【删除空气质量】 删除失败！");
+        }
     }
 }

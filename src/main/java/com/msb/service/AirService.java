@@ -2,6 +2,7 @@ package com.msb.service;
 
 import com.github.pagehelper.PageInfo;
 import com.msb.DTO.AirAddDTO;
+import com.msb.DTO.AirUpdateDTO;
 import com.msb.entity.District;
 
 import java.util.List;
@@ -35,4 +36,18 @@ public interface AirService {
      * @param airAddDTO
      */
     void add(AirAddDTO airAddDTO);
+    
+    /**
+     * 修改空气质量信息
+     *
+     * @param airUpdateDTO
+     */
+    void updateById(AirUpdateDTO airUpdateDTO);
+    
+    /**
+     * 删除空气质量信息
+     *
+     * @param id
+     */
+    void deleteById(Integer id);
 }
